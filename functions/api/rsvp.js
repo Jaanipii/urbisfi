@@ -460,6 +460,12 @@ Bar open until 19:30.
 We'll send more details closer to the event. Keep this email as your confirmation.
 </div>
 
+<div style="margin-top:24px;font-size:13px;color:#222;line-height:1.7;padding:16px;background-color:#f9f9f9;border-radius:8px;border:1px solid #ddd;">
+<strong>Want to bring a +1?</strong><br>
+Send this link to your +1 so they can register for the guest list:<br>
+<a href="https://urbangardenhelsinki.fi/rsvp/avec.html" style="color:#5cb832;text-decoration:none;">https://urbangardenhelsinki.fi/rsvp/avec.html</a>
+</div>
+
 <!-- CTAs -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:28px;">
 <tr>
@@ -467,11 +473,7 @@ We'll send more details closer to the event. Keep this email as your confirmatio
 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Urban+Garden+Soft+Launch&dates=20260521T130000Z/20260521T170000Z&details=DJ+by+Luxonia+playing+house+music.%0AThe+on-site+jacuzzi+and+sauna+will+be+available.+Kindly+bring+your+own+swimwear+and+towel.%0ABar+open+until+19%3A30.&location=Kansakoulukatu+3,+Helsinki" target="_blank" style="display:inline-block;padding:14px 36px;background-color:#5cb832;border-radius:40px;color:#ffffff;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;">Add to Calendar</a>
 </td>
 </tr>
-<tr>
-<td align="center" style="padding-bottom:12px;">
-<a href="https://urbangardenhelsinki.fi/rsvp/avec.html" target="_blank" style="display:inline-block;padding:14px 36px;background-color:transparent;border:1px solid #5cb832;border-radius:40px;color:#5cb832;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;">Register your +1</a>
-</td>
-</tr>
+
 <tr>
 <td align="center">
 <a href="https://urbangardenhelsinki.fi" target="_blank" style="display:inline-block;padding:14px 36px;border:1px solid #5cb832;border-radius:40px;color:#5cb832;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;">Urban Garden &rarr;</a>
