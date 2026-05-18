@@ -44,10 +44,11 @@ export async function onRequestPost(context) {
     
     // Check if invitee exists
     const inviteeKey = `rsvp:${safeInvitee}`;
-    const inviteeExists = await env.RSVPS.get(inviteeKey);
-    if (!inviteeExists) {
+    const inviteeRecord = await env.RSVPS.getWithMetadata(inviteeKey);
+    if (!inviteeRecord || !inviteeRecord.value) {
       return new Response('The invitee email provided is not on the guest list. Only confirmed guests can bring a +1.', { status: 400 });
     }
+    const inviteeName = inviteeRecord.metadata?.name || safeInvitee;
 
     // Check if invitee already has a +1
     const avecKey = `avec:${safeInvitee}`;
@@ -92,7 +93,7 @@ export async function onRequestPost(context) {
             from: 'Urban Garden <rsvp@urbangardenhelsinki.fi>',
             to: safeEmail,
             subject: "You're in — Urban Garden Soft Launch",
-            html: buildConfirmationEmail(firstName)
+            html: buildConfirmationEmail(firstName, safeInvitee, inviteeName)
           })
         });
       } catch (_) {
@@ -109,7 +110,7 @@ export async function onRequestPost(context) {
   }
 }
 
-function buildConfirmationEmail(firstName) {
+function buildConfirmationEmail(firstName, inviteeEmail, inviteeName) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,7 +137,8 @@ function buildConfirmationEmail(firstName) {
 <h1 style="margin:0 0 24px 0;font-size:24px;font-weight:300;letter-spacing:1px;color:#ffffff;text-transform:uppercase;">You're in, ${firstName}.</h1>
 
 <div style="font-size:15px;line-height:1.6;color:#a0a0a0;margin-bottom:32px;">
-Your RSVP for the <strong style="color:#ffffff;">Urban Garden Soft Launch</strong> is confirmed. You're on the guest list as a +1.<br><br>
+Your RSVP for the <strong style="color:#ffffff;">Urban Garden Soft Launch</strong> is confirmed.<br>
+You're on the guest list as a +1 for <strong style="color:#ffffff;">${inviteeName}</strong> (<a href="mailto:${inviteeEmail}" style="color:#a0a0a0;text-decoration:none;">${inviteeEmail}</a>).<br><br>
 16:00 &ndash; 20:00<br><br>
 DJ by Luxonia playing house music.<br>
 The on-site jacuzzi and sauna will be available. Kindly bring your own swimwear and towel.<br>
