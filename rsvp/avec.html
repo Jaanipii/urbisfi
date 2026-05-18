@@ -528,7 +528,11 @@
       </div>
 
       <div class="rsvp-form-wrap">
-        <form class="rsvp-form" id="rsvp-form" action="/api/avec" method="POST">
+        <div style="text-align: center; padding: 32px 24px; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(0,0,0,0.2); margin-bottom: 24px;">
+          <h2 style="font-size: 1.1rem; font-weight: 300; letter-spacing: 0.1em; color: var(--text-primary); margin-bottom: 12px; text-transform: uppercase;">+1 Registration Temporarily Closed</h2>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">We are currently managing the guest list. Please check back later.</p>
+        </div>
+        <form class="rsvp-form" id="rsvp-form" action="/api/avec" method="POST" style="display: none;">
           <input type="text" name="_honey" style="display:none">
 
           <div class="form-group">
