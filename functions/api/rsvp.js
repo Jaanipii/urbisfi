@@ -151,6 +151,7 @@ export async function onRequestGet(context) {
         <td>${escapeHtml(r.name)}</td>
         <td><a href="mailto:${escapeHtml(r.email)}">${escapeHtml(r.email)}</a></td>
         <td class="dim">${formatted}</td>
+        <td class="dim" style="color: ${r.marketingOptIn ? 'var(--green)' : 'inherit'};">${r.marketingOptIn ? 'Opted In' : '—'}</td>
       </tr>`;
   }).join('');
 
@@ -323,6 +324,7 @@ export async function onRequestGet(context) {
             <th>Name</th>
             <th>Email</th>
             <th>Date</th>
+            <th>Marketing</th>
           </tr>
         </thead>
         <tbody>${tableRows}</tbody>
