@@ -528,6 +528,9 @@
       </div>
 
       <div class="rsvp-form-wrap">
+        <div id="capacity-counter" style="text-align: center; margin-bottom: 24px; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase;">
+          <span id="spots-left" style="color: var(--accent-green); font-weight: 500; font-size: 1.1rem;">--</span> / 100 Spots Remaining
+        </div>
         <form class="rsvp-form" id="rsvp-form" action="/api/rsvp" method="POST" style="display: flex;">
           <input type="text" name="_honey" style="display:none">
           <input type="hidden" name="rsvp_type" value="priority">
@@ -633,6 +636,26 @@
       if (!reduced) loop();
     })();
 
+    // Fetch Capacity
+    (function() {
+      fetch('/api/capacity')
+        .then(res => res.json())
+        .then(data => {
+          const spotsLeftEl = document.getElementById('spots-left');
+          if (spotsLeftEl && data.spotsLeft !== undefined) {
+            spotsLeftEl.textContent = data.spotsLeft;
+            if (data.spotsLeft === 0) {
+              spotsLeftEl.style.color = '#e74c3c';
+              const btn = document.getElementById('rsvp-submit');
+              if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="btn-text">List Full</span>';
+              }
+            }
+          }
+        })
+        .catch(() => {});
+    })();
   </script>
 
 </body>
