@@ -291,8 +291,14 @@ const DOM = {
   let W, H;
   const particles = [];
   
+  // Config flag to switch between sparks and ambient balls
+  const USE_SPARKS = true;
+
   // Responsive particle count (fewer on mobile for performance)
-  const PARTICLE_COUNT = window.innerWidth > 768 ? 35 : 15;
+  // Sparks need a bit more count to look good
+  const PARTICLE_COUNT = USE_SPARKS ? 
+    (window.innerWidth > 768 ? 100 : 40) : 
+    (window.innerWidth > 768 ? 35 : 15);
 
   function resize() {
     W = canvas.width = window.innerWidth;
@@ -302,30 +308,26 @@ const DOM = {
   window.addEventListener('resize', resize);
   resize();
 
-  class Particle {
+  // The original ambient light balls
+  class LegacyParticle {
     constructor() {
       this.reset(true);
     }
     reset(initial = false) {
       this.x = Math.random() * W;
-      // Spawn evenly on first load, otherwise spawn from below the bottom
       this.y = initial ? Math.random() * H : H + Math.random() * 100 + 20;
-      this.size = Math.random() * 11 + 3; // Radius 3 to 14 (50% smaller)
+      this.size = Math.random() * 11 + 3;
       this.speedX = (Math.random() - 0.5) * 0.4;
-      this.speedY = -Math.random() * 0.6 - 0.2; // Float upwards
-      this.opacity = Math.random() * 0.12 + 0.03; // Max opacity 0.15
-      
-      // 25% chance white, 75% chance soft purple
+      this.speedY = -Math.random() * 0.6 - 0.2;
+      this.opacity = Math.random() * 0.12 + 0.03;
       this.isWhite = Math.random() > 0.75;
-      this.life = Math.random() * 800 + 400; // Live longer to reach the top
+      this.life = Math.random() * 800 + 400;
       this.maxLife = this.life;
     }
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
       this.life--;
-
-      // Sway gently back and forth
       this.x += Math.sin(Date.now() * 0.001 + this.y * 0.01) * 0.25;
 
       if (this.life <= 0 || this.y < -50 || this.x < -50 || this.x > W + 50) {
@@ -333,26 +335,98 @@ const DOM = {
       }
     }
     draw() {
-      // Fade in and out at start and end of life
       const fadeRatio = this.life < 100 ? this.life / 100 : (this.life > this.maxLife - 100 ? (this.maxLife - this.life) / 100 : 1);
       const currentOpacity = this.opacity * fadeRatio;
       
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.isWhite ? `rgba(255, 255, 255, ${currentOpacity})` : `rgba(180, 110, 220, ${currentOpacity})`;
+      ctx.fill();
+    }
+  }
+
+  // New realistic purple sparks
+  class SparkParticle {
+    constructor() {
+      this.reset(true);
+    }
+    reset(initial = false) {
+      this.x = Math.random() * W;
+      // Sparks spawn heavily from the bottom or below
+      this.y = initial ? H + Math.random() * H * 0.5 : H + Math.random() * 50;
       
-      if (this.isWhite) {
-        ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
-      } else {
-        // Soft purple/pinkish hue
-        ctx.fillStyle = `rgba(180, 110, 220, ${currentOpacity})`;
+      this.size = Math.random() * 1.5 + 0.5; // Small sparks
+      
+      // Fast upward speed initially
+      this.speedY = -(Math.random() * 3 + 1.5); 
+      this.speedX = (Math.random() - 0.5) * 1.5;
+      
+      this.baseOpacity = Math.random() * 0.6 + 0.4; // Starts bright
+      this.opacity = this.baseOpacity;
+      
+      // Purple / Magenta / Deep Pink hues
+      const hues = [270, 290, 310];
+      this.hue = hues[Math.floor(Math.random() * hues.length)];
+      
+      this.maxLife = Math.random() * 150 + 80;
+      this.life = this.maxLife;
+      
+      this.history = []; // For motion trails
+    }
+    update() {
+      this.history.push({x: this.x, y: this.y});
+      if (this.history.length > 6) { // Tail length
+        this.history.shift();
       }
       
+      this.x += this.speedX;
+      this.y += this.speedY;
+      
+      // Air resistance / gravity
+      this.speedY += 0.015; // Slow down ascent
+      this.speedX += (Math.random() - 0.5) * 0.2; // Turbulence
+      
+      this.life--;
+      
+      // Twinkle
+      this.opacity = this.baseOpacity * (0.6 + Math.random() * 0.4);
+      
+      // If it burns out or falls way out of bounds
+      if (this.life <= 0 || this.y < -50 || this.x < -50 || this.x > W + 50 || this.y > H + 200) {
+        this.reset();
+        this.history = [];
+      }
+    }
+    draw() {
+      if (this.history.length < 2) return;
+      
+      const fadeRatio = Math.max(0, this.life / this.maxLife); // 1 to 0
+      
+      // Hot spark: starts almost white, cools to purple, then fades
+      const lightness = fadeRatio > 0.85 ? 90 : Math.floor(fadeRatio * 40 + 30);
+      
+      // Draw tail
+      ctx.beginPath();
+      ctx.moveTo(this.history[0].x, this.history[0].y);
+      for (let i = 1; i < this.history.length; i++) {
+        ctx.lineTo(this.history[i].x, this.history[i].y);
+      }
+      
+      ctx.strokeStyle = `hsla(${this.hue}, 100%, ${lightness}%, ${this.opacity * fadeRatio})`;
+      ctx.lineWidth = this.size * 0.8;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      
+      // Draw head
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue}, 100%, ${lightness + 10}%, ${this.opacity * fadeRatio})`;
       ctx.fill();
     }
   }
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Particle());
+    particles.push(USE_SPARKS ? new SparkParticle() : new LegacyParticle());
   }
 
   // Optimize animation loop
