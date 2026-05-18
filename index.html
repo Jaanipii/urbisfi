@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Garden — Two Worlds, One Night | 26.06.2026 Helsinki</title>
+  <meta name="description" content="Urban Garden — Two Worlds, One Night. Courtyard House party 17–22 × Basement rave 22–02. Friday 26.06.2026 at Kansakoulukatu 3, Kamppi, Helsinki. Featuring Axity, Walter Alan, Thomas Will, Eric Altair, Loose, KLASS, ROPSU, Mike Ditchz, Robbe &amp; KUOKKA.">
+  <meta property="og:title" content="Urban Garden — Two Worlds, One Night">
+  <meta property="og:description" content="Courtyard/House × Basement/Techno. 26.06.2026 at Kamppi, Helsinki.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
+
+  <!-- Performance optimizations -->
+  <link rel="preload" href="assets/concrete-bg.png" as="image">
+  <link rel="preload" href="UG_Logo_Textured 1 (1).png" as="image">
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicEvent",
+    "name": "Urban Garden — Two Worlds, One Night",
+    "startDate": "2026-05-29T17:00:00+03:00",
+    "endDate": "2026-05-30T02:00:00+03:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Kansakoulukatu 3",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Kansakoulukatu 3",
+        "addressLocality": "Helsinki",
+        "addressRegion": "Kamppi",
+        "addressCountry": "FI"
+      }
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Urban Garden",
+        "price": "22",
+        "priceCurrency": "EUR",
+        "url": "https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5",
+        "availability": "https://schema.org/LimitedAvailability"
+      },
+      {
+        "@type": "Offer",
+        "name": "Urban Garden — Underground",
+        "price": "28",
+        "priceCurrency": "EUR",
+        "url": "https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5",
+        "availability": "https://schema.org/LimitedAvailability"
+      }
+    ],
+    "performer": [
+      {"@type": "MusicGroup", "name": "Axity"},
+      {"@type": "MusicGroup", "name": "Walter Alan"},
+      {"@type": "MusicGroup", "name": "Thomas Will"},
+      {"@type": "MusicGroup", "name": "Eric Altair"},
+      {"@type": "MusicGroup", "name": "Loose"},
+      {"@type": "MusicGroup", "name": "KLASS"},
+      {"@type": "MusicGroup", "name": "ROPSU"},
+      {"@type": "MusicGroup", "name": "Mike Ditchz"},
+      {"@type": "MusicGroup", "name": "Robbe"},
+      {"@type": "MusicGroup", "name": "KUOKKA"}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#tickets" class="top-announcement-bar" id="top-announcement-bar">
+    <div class="announcement-content">
+      <span class="announcement-badge">⚡ FLASH SALE</span>
+      <span class="announcement-text"><span class="lang-en">Buy two, save €8! Ends in:</span><span class="lang-fi">Osta kaksi, säästä 8 €! Päättyy:</span> <span id="flash-countdown" class="flash-timer">00:00:00:00</span></span>
+      <span class="announcement-arrow">➔</span>
+    </div>
+  </a>
+  <!-- Sticky Navigation -->
+  <nav class="sticky-nav" id="sticky-nav" aria-label="Main navigation">
+    <div class="sticky-nav-inner">
+      <div class="sticky-nav-links">
+        <a href="#about" class="nav-link" data-section="about">
+          <span class="lang-en">About</span><span class="lang-fi">Tapahtuma</span>
+        </a>
+        <a href="#lineup" class="nav-link" data-section="lineup">
+          <span class="lang-en">Lineup</span><span class="lang-fi">Esiintyjät</span>
+        </a>
+        <a href="#schedule" class="nav-link" data-section="schedule">
+          <span class="lang-en">Schedule</span><span class="lang-fi">Aikataulu</span>
+        </a>
+        <a href="#tickets" class="nav-link" data-section="tickets">
+          <span class="lang-en">Tickets</span><span class="lang-fi">Liput</span>
+        </a>
+        <a href="#faq" class="nav-link" data-section="faq">
+          <span class="lang-en">FAQ</span><span class="lang-fi">UKK</span>
+        </a>
+      </div>
+      <div class="nav-actions" style="display: flex; gap: 16px; align-items: center;">
+        <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language" style="background: none; border: none; color: white; font-family: inherit; font-size: 14px; font-weight: bold; cursor: pointer; display: flex; gap: 4px;">
+          <span class="lang-toggle-en">EN</span>
+          <span class="lang-toggle-sep" style="color: var(--text-dim);">/</span>
+          <span class="lang-toggle-fi" style="color: var(--text-secondary);">FI</span>
+        </button>
+        <a href="https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5" target="_blank" rel="noopener noreferrer" class="nav-cta" id="nav-cta">
+          <span class="lang-en">Get Tickets</span><span class="lang-fi">Osta liput</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Darkness overlay -->
+  <div class="darkness-overlay" id="darkness-overlay"></div>
+
+  <!-- Vignette overlay -->
+  <div class="vignette" id="vignette-overlay"></div>
+
+  <!-- Ambient vine particles -->
+  <canvas id="vine-canvas"></canvas>
+
+  <!-- Hero Section -->
+  <section id="hero" class="section hero">
+    <div class="hero-content">
+      <p class="hero-tagline">Two Worlds, One Night</p>
+      <img src="UG_Logo_Textured 1 (1).png" alt="Urban Garden" class="hero-logo" id="hero-logo" fetchpriority="high" decoding="async">
+      <p class="hero-subtitle">Courtyard / House <span class="x-mark">×</span> Basement / Techno</p>
+      <!-- Above-the-fold CTA -->
+      <a href="https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5" target="_blank" rel="noopener noreferrer" class="hero-cta" id="hero-cta">
+        <span class="hero-cta-date">26.06.2026</span>
+        <span class="hero-cta-divider">·</span>
+        <span>Get Tickets</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Countdown Section -->
+  <section id="countdown-section" class="section countdown-section">
+    <div class="countdown-label">Doors open in</div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-days">00</span>
+        <span class="countdown-unit">Days</span>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-hours">00</span>
+        <span class="countdown-unit">Hours</span>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-minutes">00</span>
+        <span class="countdown-unit">Minutes</span>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-block">
+        <span class="countdown-number" id="cd-seconds">00</span>
+        <span class="countdown-unit">Seconds</span>
+      </div>
+    </div>
+    <div class="event-date-location">
+      <span class="event-date">26.06.2026</span>
+      <span class="event-dot">·</span>
+      <span class="event-location">Kamppi, Helsinki</span>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section about-section">
+    <h2 class="section-title"><span class="lang-en">About the Event</span><span class="lang-fi">Tapahtuma</span></h2>
+    <div class="about-content">
+      <p class="about-lead"><span class="lang-en">The only place where you can experience a beautiful courtyard party and a crazy basement rave in one seamless evening — same address.</span><span class="lang-fi">Ainoa paikka, jossa voit kokea kauniit sisäpihabileet ja hullut kellarireivit yhden saumattoman illan aikana — samassa osoitteessa.</span></p>
+      <div class="about-blocks">
+        <div class="about-block" id="about-courtyard">
+          <div class="about-block-time">17:00 – 22:00</div>
+          <h3 class="about-block-title"><span class="lang-en">Courtyard</span><span class="lang-fi">Sisäpiha</span> <span class="about-block-accent">House</span></h3>
+          <p class="about-block-text"><span class="lang-en">Keeping the courtyard atmosphere high with House music. Enjoy the music, drinks, and catering under the summer sun, sheltered by the courtyard walls.</span><span class="lang-fi">Nostamme sisäpihan tunnelman kattoon House-musiikilla. Nauti musiikista, juomista ja ruoasta kesäauringon alla, sisäpihan seinien suojassa.</span></p>
+        </div>
+        <div class="about-block" id="about-basement">
+          <div class="about-block-time">22:00 – 02:00</div>
+          <h3 class="about-block-title"><span class="lang-en">Basement</span><span class="lang-fi">Kellari</span> <span class="about-block-accent">Underground</span></h3>
+          <p class="about-block-text"><span class="lang-en">The party goes underground and escalates to the pounding of heavier electronic music. Responsible for making the basement shake are some of Finland's most acclaimed EDM performers.</span><span class="lang-fi">Juhlat siirtyvät maan alle ja kiihtyvät raskaamman elektronisen musiikin jytkeeseen. Kellarin tärisyttämisestä vastaavat eräät Suomen arvostetuimmista EDM-artisteista.</span></p>
+        </div>
+      </div>
+
+      <div class="about-extra" id="about-sauna">
+        <p class="about-extra-text"><span class="lang-en">In collaboration with Hartwall, we also have an on-site sauna and jacuzzi on a "first come, first served" basis. <strong>Bring your own towel and swimsuit!</strong></span><span class="lang-fi">Yhteistyössä Hartwallin kanssa tarjoamme myös saunan ja jacuzzin "first come, first served" -periaatteella. <strong>Ota oma pyyhe ja uimapuku mukaan!</strong></span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Stats -->
+  <section id="social-proof" class="section social-proof-section">
+    <div class="proof-stats">
+      <div class="proof-stat">
+        <span class="proof-stat-number" data-target="10">0</span>
+        <span class="proof-stat-label">Artists</span>
+      </div>
+      <div class="proof-stat-divider"></div>
+      <div class="proof-stat">
+        <span class="proof-stat-number" data-target="2">0</span>
+        <span class="proof-stat-label">Stages</span>
+      </div>
+      <div class="proof-stat-divider"></div>
+      <div class="proof-stat">
+        <span class="proof-stat-number" data-target="1">0</span>
+        <span class="proof-stat-label">Sauna</span>
+      </div>
+    </div>
+    <p class="proof-tagline">Helsinki's most unique summer night — courtyard to basement, sunset to sunrise.</p>
+  </section>
+
+  <!-- Lineup Section -->
+  <section id="lineup" class="section lineup-section">
+    <h2 class="section-title"><span class="lang-en">Lineup</span><span class="lang-fi">Esiintyjät</span></h2>
+
+    <!-- Stage: Courtyard / House — 17:00–22:00 -->
+    <div class="stage-block">
+      <h3 class="stage-heading"><span class="lang-en">Courtyard</span><span class="lang-fi">Sisäpiha</span><span class="stage-genre-tag">House · 17:00 – 22:00</span></h3>
+      <div class="artist-grid">
+        <a href="https://open.spotify.com/artist/4TEOItM1eSa55pK44NiEhp?si=N0FtpejhRK6CRo4cJ-7mTg" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-axity">
+          <div class="artist-photo-wrap">
+            <img src="assets/AXITY 1.png" alt="Axity" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">Axity</span>
+        </a>
+        <a href="https://open.spotify.com/artist/1QXPCz4ERtbszXTPji4sjl?si=w_RPzrPvS_6vCMgK_XWvkQ" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-walter">
+          <div class="artist-photo-wrap">
+            <img src="assets/WALTER_ALAN 1.png" alt="Walter Alan" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">Walter Alan</span>
+        </a>
+        <a href="https://open.spotify.com/artist/3BSndMDvNNBCHSVjvxNqmV?si=07J2Ni9QQi2pjwEnmw64mA" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-thomas">
+          <div class="artist-photo-wrap">
+            <img src="assets/THOMAS_WILL 1.png" alt="Thomas Will" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">Thomas Will</span>
+        </a>
+        <a href="https://open.spotify.com/artist/2WRQwi9gI05hpyKroFHnYL?si=-0JLNDCcRZiHVOYFjazrnQ" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-eric">
+          <div class="artist-photo-wrap">
+            <img src="assets/ERIC_ALTAIR 1.png" alt="Eric Altair" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">Eric Altair</span>
+        </a>
+        <a href="https://open.spotify.com/artist/7ocpNpAnlCOeaJatjCXbRO?si=E9tjBalrRsSZbuC0TdspVQ" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-loose">
+          <div class="artist-photo-wrap">
+            <img src="assets/LOOSE 1.png" alt="Loose" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">Loose</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="stage-divider"></div>
+
+    <!-- Stage: Basement — 22:00–02:00 -->
+    <div class="stage-block">
+      <h3 class="stage-heading"><span class="lang-en">Basement</span><span class="lang-fi">Kellari</span><span class="stage-genre-tag">Underground · 22:00 – 02:00</span></h3>
+      <div class="artist-grid">
+        <a href="https://open.spotify.com/artist/3VEJezx56HYKPynA5EIcB9?si=WysdK8vRSe63Y4VFrK-zVA" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-klass">
+          <div class="artist-photo-wrap">
+            <img src="assets/KLASS (1) 1.png" alt="KLASS" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">KLASS</span>
+        </a>
+        <a href="https://open.spotify.com/artist/7eIvLQZT0QSY7i6ElGjILg?si=NP_7KzQ3Q76xUO34SIHUoQ" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-ropsu">
+          <div class="artist-photo-wrap">
+            <img src="assets/ROPSU 1.png" alt="ROPSU" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">ROPSU</span>
+        </a>
+        <a href="https://open.spotify.com/artist/6KQQGFJeMsYdVMog61Ykxh?si=fgSDrjb9QjC7dP1Ru8eQVw" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-mike">
+          <div class="artist-photo-wrap">
+            <img src="assets/MIKE_DITCHZ 1.png" alt="Mike Ditchz" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">Mike Ditchz</span>
+        </a>
+        <a href="https://open.spotify.com/artist/58imfUscPVwuhuHt1MpBDA?si=3xNixI6UQ0ee9iMBF02Ehw" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-robbe">
+          <div class="artist-photo-wrap">
+            <img src="assets/ROBBE 1.png" alt="Robbe" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">Robbe</span>
+        </a>
+        <a href="https://open.spotify.com/artist/6jFa0fLeBTANOdmD9171kE?si=nbVkMPWuSVyAEMSIN2QhoA" target="_blank" rel="noopener noreferrer" class="artist-card" id="artist-kuokka">
+          <div class="artist-photo-wrap">
+            <img src="assets/KUOKKA 1.png" alt="KUOKKA" class="artist-photo" loading="lazy" decoding="async">
+          </div>
+          <span class="artist-card-name">KUOKKA</span>
+        </a>
+      </div>
+    </div>
+
+    <p class="lineup-more">+ More artists to be announced</p>
+  </section>
+
+  <!-- Schedule Section -->
+  <section id="schedule" class="section schedule-section">
+    <h2 class="section-title"><span class="lang-en">Schedule</span><span class="lang-fi">Aikataulu</span></h2>
+    <div class="schedule-timeline">
+      <div class="schedule-item">
+        <div class="schedule-time">17:00 – 20:00</div>
+        <div class="schedule-info">
+          <span class="schedule-stage courtyard-tag">Courtyard</span>
+          <span class="schedule-artist">To be announced</span>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">20:00 – 21:00</div>
+        <div class="schedule-info">
+          <span class="schedule-stage courtyard-tag">Courtyard</span>
+          <span class="schedule-artist">Axity &amp; Walter Alan</span>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">21:00 – 22:00</div>
+        <div class="schedule-info">
+          <span class="schedule-stage courtyard-tag">Courtyard</span>
+          <span class="schedule-artist">Thomas Will</span>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">22:00 – 23:00</div>
+        <div class="schedule-info">
+          <span class="schedule-stage basement-tag">Basement</span>
+          <span class="schedule-artist">Eric Altair &amp; Loose</span>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">23:00 – 00:00</div>
+        <div class="schedule-info">
+          <span class="schedule-stage basement-tag">Basement</span>
+          <span class="schedule-artist">ROPSU &amp; Mike Ditchz</span>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">00:00 – 01:00</div>
+        <div class="schedule-info">
+          <span class="schedule-stage basement-tag">Basement</span>
+          <span class="schedule-artist">KLASS</span>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">01:00 – 02:00</div>
+        <div class="schedule-info">
+          <span class="schedule-stage basement-tag">Basement</span>
+          <span class="schedule-artist">Robbe &amp; KUOKKA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tickets Section -->
+  <section id="tickets" class="section tickets-section">
+    <h2 class="section-title"><span class="lang-en">Get Your Tickets</span><span class="lang-fi">Osta liput</span></h2>
+    <p class="tickets-urgency" id="tickets-urgency">
+      <span class="urgency-dot"></span>
+      Selling fast — limited capacity
+    </p>
+
+    <!-- Flash Sale Wrapper -->
+    <div class="flash-sale-wrapper" style="max-width: 800px; margin: 0 auto 40px auto; border: 1px solid rgba(255, 59, 48, 0.6); border-radius: 20px; padding: 32px 24px; background: rgba(255, 59, 48, 0.03); text-align: center; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #ff3b30, #ff9500); box-shadow: 0 0 15px #ff3b30;"></div>
+      <h3 style="color: #ff3b30; font-size: 1.8rem; margin-bottom: 8px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; text-shadow: 0 0 20px rgba(255, 59, 48, 0.4);">⚡ Flash Sale ⚡</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 32px; font-size: 1rem; letter-spacing: 0.02em;">Ends Sunday Midnight! Grab a friend and secure your spot.</p>
+      
+      <div class="ticket-options" style="margin-bottom: 0; width: 100%;">
+        <!-- Flash Ticket 1 -->
+        <div class="ticket-card" style="border-color: rgba(255, 59, 48, 0.3); background: rgba(255, 59, 48, 0.02);">
+          <div class="ticket-card-badge" style="background: rgba(255, 59, 48, 0.15); color: #ff3b30; border-color: rgba(255, 59, 48, 0.3);">2x Courtyard</div>
+          <h3 class="ticket-card-title">FLASH SALE - Courtyard Duo</h3>
+          <div class="ticket-card-price">€36</div>
+          <p class="ticket-card-desc"><span class="lang-en">Buy two, save €8! 2x Courtyard tickets (17:00 – 22:00) for a discounted price.</span><span class="lang-fi">Osta kaksi, säästä 8 €! 2x Sisäpiha-lippua (17:00 – 22:00) alennettuun hintaan.</span></p>
+          <ul class="ticket-features">
+            <li><span class="lang-en">2x Courtyard access</span><span class="lang-fi">2x Pääsy sisäpihalle</span></li>
+            <li><span class="lang-en">House music by 5 DJs</span><span class="lang-fi">House-musiikkia 5 DJ:ltä</span></li>
+            <li><span class="lang-en">Sauna &amp; jacuzzi access</span><span class="lang-fi">Sauna &amp; jacuzzi vapaassa käytössä</span></li>
+          </ul>
+          <a href="https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5" target="_blank" rel="noopener noreferrer" class="ticket-card-btn" style="background: rgba(255, 59, 48, 0.1); color: #ff3b30; border-color: rgba(255, 59, 48, 0.3);">
+            <span class="lang-en">Select</span><span class="lang-fi">Valitse</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </a>
+        </div>
+        
+        <!-- Flash Ticket 2 -->
+        <div class="ticket-card ticket-card--featured" style="border-color: #ff3b30; box-shadow: 0 8px 32px rgba(255, 59, 48, 0.15); background: rgba(255, 59, 48, 0.04);">
+          <div class="ticket-card-ribbon" style="background: #ff3b30; color: white;"><span class="lang-en">Best Deal</span><span class="lang-fi">Paras diili</span></div>
+          <div class="ticket-card-badge" style="background: rgba(255, 59, 48, 0.2); color: #ff3b30; border-color: rgba(255, 59, 48, 0.4);"><span class="lang-en">2x Full Access</span><span class="lang-fi">2x Koko ilta</span></div>
+          <h3 class="ticket-card-title">FLASH SALE - Courtyard x Basement Duo</h3>
+          <div class="ticket-card-price">€48</div>
+          <p class="ticket-card-desc"><span class="lang-en">Buy two, save €8! The ultimate package. 2x Full Access tickets (17:00 – 02:00).</span><span class="lang-fi">Osta kaksi, säästä 8 €! Täydellinen paketti. 2x Koko illan lippua (17:00 – 02:00).</span></p>
+          <ul class="ticket-features">
+            <li><span class="lang-en">2x Full Access (Courtyard & Basement)</span><span class="lang-fi">2x Koko illan pääsy (Sisäpiha & Kellari)</span></li>
+            <li><span class="lang-en">Both stages — House &amp; Techno</span><span class="lang-fi">Molemmat lavat — House &amp; Techno</span></li>
+            <li><span class="lang-en">Sauna &amp; jacuzzi access</span><span class="lang-fi">Sauna &amp; jacuzzi vapaassa käytössä</span></li>
+          </ul>
+          <a href="https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5" target="_blank" rel="noopener noreferrer" class="ticket-card-btn ticket-card-btn--featured" style="background: #ff3b30; border-color: #ff3b30; color: white; box-shadow: 0 4px 16px rgba(255, 59, 48, 0.4);">
+            <span class="lang-en">Select</span><span class="lang-fi">Valitse</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Standard Tickets -->
+    <div class="ticket-options">
+      <div class="ticket-card" id="ticket-garden">
+        <div class="ticket-card-badge"><span class="lang-en">Courtyard</span><span class="lang-fi">Sisäpiha</span></div>
+        <h3 class="ticket-card-title">Urban Garden - Courtyard</h3>
+        <div class="ticket-card-price">€22</div>
+        <p class="ticket-card-desc"><span class="lang-en">A summery courtyard party to the beat of House music, without sacrificing your night's sleep.</span><span class="lang-fi">Kesäiset sisäpihabileet House-musiikin tahtiin, yöunista tinkimättä.</span></p>
+        <ul class="ticket-features">
+          <li><span class="lang-en">Courtyard access (17:00 – 22:00)</span><span class="lang-fi">Pääsy sisäpihalle (17:00 – 22:00)</span></li>
+          <li><span class="lang-en">House music by 5 DJs</span><span class="lang-fi">House-musiikkia 5 DJ:ltä</span></li>
+          <li><span class="lang-en">Catering &amp; Hartwall bar</span><span class="lang-fi">Ruokaa &amp; Hartwall-baari</span></li>
+          <li><span class="lang-en">Sauna &amp; jacuzzi access</span><span class="lang-fi">Sauna &amp; jacuzzi vapaassa käytössä</span></li>
+        </ul>
+        <a href="https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5" target="_blank" rel="noopener noreferrer" class="ticket-card-btn">
+          <span class="lang-en">Select</span><span class="lang-fi">Valitse</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+        </a>
+      </div>
+      <div class="ticket-card ticket-card--featured" id="ticket-underground">
+        <div class="ticket-card-ribbon"><span class="lang-en">Most Popular</span><span class="lang-fi">Suosituin</span></div>
+        <div class="ticket-card-badge"><span class="lang-en">Full Access</span><span class="lang-fi">Koko ilta</span></div>
+        <h3 class="ticket-card-title">Urban Garden - Courtyard x Basement</h3>
+        <div class="ticket-card-price">€28</div>
+        <p class="ticket-card-desc"><span class="lang-en">For those who don't want the night to end. Full access to the entire evening's program.</span><span class="lang-fi">Niille, jotka eivät halua illan päättyvän. Täysi pääsy koko illan ohjelmaan.</span></p>
+        <ul class="ticket-features">
+          <li><span class="lang-en">Full access (17:00 – 02:00)</span><span class="lang-fi">Koko illan pääsy (17:00 – 02:00)</span></li>
+          <li><span class="lang-en">Both stages — House &amp; Techno</span><span class="lang-fi">Molemmat lavat — House &amp; Techno</span></li>
+          <li><span class="lang-en">Catering &amp; Hartwall bar</span><span class="lang-fi">Ruokaa &amp; Hartwall-baari</span></li>
+          <li><span class="lang-en">Sauna &amp; jacuzzi access</span><span class="lang-fi">Sauna &amp; jacuzzi vapaassa käytössä</span></li>
+          <li><span class="lang-en">Basement rave with top DJs</span><span class="lang-fi">Kellarireivit huippu-DJ:den tahtiin</span></li>
+        </ul>
+        <a href="https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5" target="_blank" rel="noopener noreferrer" class="ticket-card-btn ticket-card-btn--featured">
+          <span class="lang-en">Select</span><span class="lang-fi">Valitse</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="ticket-notes">
+      <p class="ticket-note">Tickets limited · K-18</p>
+      <p class="ticket-venue">📍 Kansakoulukatu 3, Kamppi · Friday 26.06 · 17:00–02:00</p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section faq-section">
+    <h2 class="section-title"><span class="lang-en">Frequently Asked Questions</span><span class="lang-fi">Usein Kysytyt Kysymykset</span></h2>
+    <div class="faq-list" id="faq-list">
+      
+      <!-- Tickets & Entry -->
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">What's the age limit?</span><span class="lang-fi">Mikä on ikäraja?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">The event is strictly 18+ only. No exceptions. A valid photo ID is required at the door.</span><span class="lang-fi">Tapahtuma on tiukasti K-18. Ei poikkeuksia. Voimassa oleva kuvallinen henkilöllisyystodistus vaaditaan ovella.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">Can I buy tickets at the door?</span><span class="lang-fi">Voinko ostaa lippuja ovelta?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Grab yours on the Kide app — it works all night, even if you're already at the door!</span><span class="lang-fi">Hanki omasi Kide.appista — lipunmyynti on auki koko yön, vaikka olisit jo ovella!</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">Can I upgrade to the Underground ticket later?</span><span class="lang-fi">Voinko päivittää lipun myöhemmin Koko illan lippuun?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Want to go deeper? Upgrades are available on the day if tickets remain, so don't wait too long.</span><span class="lang-fi">Haluatko jatkaa iltaa? Päivityksiä on saatavilla tapahtumapäivänä jos lippuja on jäljellä, joten älä odota liian pitkään.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">How do I access my ticket?</span><span class="lang-fi">Miten löydän lippuni?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Your ticket lives in the Kide app as a mobile QR code — no app, no entry.</span><span class="lang-fi">Lippusi löytyy Kide.appista mobiilina QR-koodina — ei sovellusta, ei sisäänpääsyä.</span></p>
+        </div>
+      </div>
+
+      <!-- Venue & Logistics -->
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">Is there a cloakroom?</span><span class="lang-fi">Onko narikkaa?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Yes, the cloakroom fee is €2. It's mandatory for the basement area, but optional if you only stay in the courtyard.</span><span class="lang-fi">Kyllä, narikkamaksu on 2 €. Se on pakollinen kellariin mentäessä, mutta vapaaehtoinen jos pysyt vain sisäpihalla.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">What's the re-entry policy?</span><span class="lang-fi">Pääseekö alueelta poistumaan välissä?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">You'll get a wristband at the door, so feel free to step out and come back.</span><span class="lang-fi">Saat ovella rannekkeen, joten voit poistua alueelta ja tulla takaisin.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">How do I get there?</span><span class="lang-fi">Miten pääsen paikalle?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">We're at Kansakoulukatu 3, right in Kamppi — easy to reach by metro, bus, tram, or foot. No excuses.</span><span class="lang-fi">Olemme osoitteessa Kansakoulukatu 3, aivan Kampissa — helppo saapua metrolla, bussilla, ratikalla tai kävellen.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">Is the venue accessible?</span><span class="lang-fi">Onko tila esteetön?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Yes, the venue is fully accessible.</span><span class="lang-fi">Kyllä, tapahtumapaikka on täysin esteetön.</span></p>
+        </div>
+      </div>
+
+      <!-- At the Event -->
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">What payment methods are accepted?</span><span class="lang-fi">Mitkä maksutavat käyvät?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Card and cash both work at the bar.</span><span class="lang-fi">Sekä kortti että käteinen käyvät baarissa.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">Is there food available?</span><span class="lang-fi">Onko ruokaa saatavilla?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Yes, there's food! We'll be announcing our food vendor soon — stay tuned.</span><span class="lang-fi">Kyllä, ruokaa on! Julkistamme ruokamyyjän pian — pysy kuulolla.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">What items are prohibited?</span><span class="lang-fi">Mitä ei saa tuoda sisään?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Leave the outside drinks, weapons, sharp objects, professional cameras, and illegal substances at home. You know the drill. Read more <a href="https://help.livenation.fi/hc/fi/articles/12603033896977-Mit%C3%A4-saan-tuoda-konserttiin-ja-mit%C3%A4-en" target="_blank" rel="noopener noreferrer">here</a>.</span><span class="lang-fi">Jätä omat juomat, aseet, teräaseet, ammattilaiskamerat ja laittomat aineet kotiin. Tiedät kyllä. Lue lisää <a href="https://help.livenation.fi/hc/fi/articles/12603033896977-Mit%C3%A4-saan-tuoda-konserttiin-ja-mit%C3%A4-en" target="_blank" rel="noopener noreferrer">täältä</a>.</span></p>
+        </div>
+      </div>
+
+      <!-- Sauna & Jacuzzi -->
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">How does the sauna &amp; jacuzzi work?</span><span class="lang-fi">Miten sauna &amp; jacuzzi toimii?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">First come, first served — no booking needed, just show up.</span><span class="lang-fi">"First come, first served" -periaatteella — ei vaadi varausta.</span></p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-en">Do I need to bring my own towel &amp; swimsuit?</span><span class="lang-fi">Pitääkö tuoda oma pyyhe ja uikkarit?</span></span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><span class="lang-en">Yes. Pack your own towel and swimwear, we won't be providing either!</span><span class="lang-fi">Kyllä. Pakkaa mukaan oma pyyhe ja uimapuku, meiltä ei löydy kumpaakaan!</span></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Partners Section -->
+  <section id="partners" class="section partners-section">
+    <h2 class="section-title section-title--small">Partners</h2>
+    <div class="partner-logos">
+      <img src="logos/Group 5.png" alt="Uni Life" class="partner-logo" id="logo-unilife">
+      <img src="logos/HARTWALL-LOGO-NEGA_cropped_2000x 1.png" alt="Hartwall" class="partner-logo" id="logo-hartwall">
+      <img src="logos/Group 8.png" alt="Luxonia" class="partner-logo" id="logo-luxonia">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-social">
+        <a href="https://instagram.com/urbangardenhelsinki" target="_blank" rel="noopener noreferrer" class="social-link" id="instagram-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+          </svg>
+          <span>@urbangardenhelsinki</span>
+        </a>
+      </div>
+      <p class="footer-copy">© 2026 Urban Garden Helsinki</p>
+    </div>
+  </footer>
+
+  <!-- Floating Bottom CTA (Mobile + Desktop) -->
+  <div class="floating-cta" id="floating-cta" aria-hidden="true">
+    <div class="floating-cta-inner">
+      <div class="floating-cta-info">
+        <span class="floating-cta-title">Urban Garden</span>
+        <span class="floating-cta-sub">29.05 · from €22</span>
+      </div>
+      <a href="https://kide.app/events/c6dfbed1-1a3c-4cf2-b6fe-26ca9bd875d5" target="_blank" rel="noopener noreferrer" class="floating-cta-btn" id="floating-cta-btn">
+        Get Tickets
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="script.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP — Urban Garden Soft Launch</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #0e0e0e;
+      --text-primary: #f0ece4;
+      --text-secondary: #9a958c;
+      --text-dim: #5a564f;
+      --accent-green: #5cb832;
+      --accent-green-light: #7ed957;
+      --accent-green-dark: #3a7a1e;
+      --border-subtle: rgba(255,255,255,0.06);
+      --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-dark);
+      background-image: url('../assets/concrete-bg.png');
+      background-repeat: repeat;
+      background-size: 512px 512px;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* --- Overlays (same as main site) --- */
+    .darkness-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      pointer-events: none; z-index: 0;
+    }
+
+    .vignette {
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.21) 60%, rgba(0,0,0,0.49) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; bottom: 0; left: 0; right: 0; height: 70vh;
+      background: radial-gradient(ellipse 120% 60% at 50% 100%, rgba(155,89,182,0.25) 0%, rgba(106,27,138,0.15) 30%, rgba(80,20,110,0.08) 50%, transparent 80%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; bottom: 0; left: 0; right: 0; height: 50vh;
+      background: linear-gradient(to top, rgba(160,80,200,0.12) 0%, rgba(130,50,170,0.06) 40%, transparent 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    #vine-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; opacity: 0.35;
+    }
+
+    /* --- Page Layout --- */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+
+    /* --- Header Area --- */
+    .rsvp-header {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .rsvp-exclusive {
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .rsvp-logo {
+      width: min(70vw, 360px);
+      height: auto;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 60px rgba(92, 184, 50, 0.12));
+    }
+
+    .rsvp-title {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* --- Perks Grid --- */
+    .rsvp-perks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+    }
+    
+    .perk-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .perk-item span {
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.5;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .rsvp-perks {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+      .perk-item {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        gap: 16px;
+      }
+      .perk-item span {
+        font-size: 14px;
+      }
+    }
+
+    /* --- Form Area --- */
+    .rsvp-form-wrap {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .form-input::placeholder {
+      color: rgba(255,255,255,0.15);
+      font-weight: 300;
+    }
+
+    .form-input:focus {
+      border-bottom-color: var(--accent-green);
+    }
+
+    .form-input:hover {
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+
+    /* Submit */
+    .rsvp-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 28px;
+      margin-top: 24px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 40px;
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rsvp-submit:hover {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      box-shadow: 0 0 30px rgba(92, 184, 50, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .rsvp-submit:active {
+      transform: translateY(0);
+    }
+
+    .rsvp-submit svg {
+      transition: transform 0.3s ease;
+      opacity: 0.6;
+    }
+
+    .rsvp-submit:hover svg {
+      transform: translateX(3px);
+      opacity: 1;
+    }
+
+    /* Loading */
+    .rsvp-submit.loading {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .rsvp-submit.loading .btn-text,
+    .rsvp-submit.loading svg {
+      opacity: 0;
+    }
+
+    .rsvp-submit.loading::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border: 1.5px solid transparent;
+      border-top-color: var(--text-primary);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    /* --- Partners --- */
+    .rsvp-partners {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 56px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .rsvp-partner-logo {
+      height: 18px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.3;
+      filter: brightness(0.9);
+      transition: opacity 0.3s ease;
+    }
+
+    .rsvp-partner-logo:hover {
+      opacity: 0.6;
+    }
+
+    .rsvp-partner-logo.small {
+      height: 14px;
+    }
+
+    /* --- Footer --- */
+    .rsvp-footer {
+      margin-top: 40px;
+      text-align: center;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .rsvp-footer-text {
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.8;
+      letter-spacing: 0.08em;
+    }
+
+    .rsvp-footer-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .rsvp-footer-link:hover {
+      color: var(--accent-green);
+    }
+
+    /* --- Success State --- */
+    .rsvp-success {
+      display: none;
+      text-align: center;
+      max-width: 420px;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .rsvp-success.visible {
+      display: block;
+    }
+
+    .rsvp-success-icon {
+      width: 64px; height: 64px;
+      border: 1px solid rgba(92, 184, 50, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px auto;
+      color: var(--accent-green);
+      animation: checkPop 0.5s 0.2s ease forwards;
+      opacity: 0; transform: scale(0.5);
+    }
+
+    .rsvp-success-title {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .rsvp-success-text {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+
+    .rsvp-success-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 36px;
+      padding: 12px 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: transparent;
+      color: var(--text-dim);
+      text-decoration: none;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .rsvp-success-back:hover {
+      border-color: rgba(92, 184, 50, 0.3);
+      color: var(--text-secondary);
+    }
+
+    /* --- Animations --- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes checkPop {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 480px) {
+      .rsvp-logo { width: 85vw; }
+      .rsvp-partners { gap: 28px; }
+      .rsvp-partner-logo { height: 15px; }
+      .rsvp-partner-logo.small { height: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="darkness-overlay"></div>
+  <div class="vignette"></div>
+  <canvas id="vine-canvas"></canvas>
+
+  <div class="page">
+
+    <!-- Form View -->
+    <div id="rsvp-form-view">
+      <div class="rsvp-header">
+        <span class="rsvp-exclusive">Exclusive</span>
+        <img src="../UG_Logo_Textured 1 (1).png" alt="Urban Garden" class="rsvp-logo">
+        <h1 class="rsvp-title">Soft Launch Party</h1>
+        <!-- Logistics Line -->
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.25em; color: var(--text-primary); margin-top: 20px; margin-bottom: 32px; text-transform: uppercase; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px;">
+          <span>21.05.2026</span>
+          <span style="color: var(--accent-green); font-size: 16px;">&bull;</span>
+          <span>16:00 &ndash; 20:00</span>
+          <span style="color: var(--accent-green); font-size: 16px;">&bull;</span>
+          <a href="https://maps.google.com/?q=Kansakoulukatu+3,+Helsinki" target="_blank" style="color: var(--text-primary); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--accent-green)'" onmouseout="this.style.color='var(--text-primary)'">Kansakoulukatu 3 &#8599;</a>
+        </div>
+
+        <!-- Intro -->
+        <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin-bottom: 36px; text-align: center;">
+          An exclusive invitation to the Urban Garden soft launch.
+        </p>
+
+        <!-- Perks Grid -->
+        <div class="rsvp-perks">
+          <div class="perk-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>DJ by Luxonia<br><small style="color: var(--text-dim); font-size: 11px; font-weight: 400;">House Music</small></span>
+          </div>
+          <div class="perk-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg>
+            <span>Jacuzzi & Sauna<br><small style="color: var(--text-dim); font-size: 11px; font-weight: 400;">BYO Swimwear & Towel</small></span>
+          </div>
+          <div class="perk-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="m3 5 6 10h6l6-10"></path><path d="M3 5h18"></path></svg>
+            <span>Bar Open<br><small style="color: var(--text-dim); font-size: 11px; font-weight: 400;">Until 19:30</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rsvp-form-wrap">
+        <form class="rsvp-form" id="rsvp-form" action="/api/rsvp" method="POST">
+          <input type="text" name="_honey" style="display:none">
+
+          <div class="form-group">
+            <label for="rsvp-name" class="form-label">Name</label>
+            <input type="text" id="rsvp-name" name="name" class="form-input" placeholder="Your full name" required autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-email" class="form-label">Email</label>
+            <input type="email" id="rsvp-email" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
+          </div>
+
+          <button type="submit" class="rsvp-submit" id="rsvp-submit">
+            <span class="btn-text">Confirm RSVP</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="rsvp-partners">
+        <img src="../logos/Group 5.png" alt="Uni Life" class="rsvp-partner-logo small">
+        <img src="../logos/HARTWALL-LOGO-NEGA_cropped_2000x 1.png" alt="Hartwall" class="rsvp-partner-logo">
+        <img src="../logos/Group 8.png" alt="Luxonia" class="rsvp-partner-logo">
+      </div>
+
+      <div class="rsvp-footer">
+        <p class="rsvp-footer-text">
+          21.05.2026 · <a href="https://maps.google.com/?q=Kansakoulukatu+3,+Helsinki" target="_blank" style="color: var(--text-dim); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--accent-green)'" onmouseout="this.style.color='var(--text-dim)'">Kansakoulukatu 3, Helsinki &#8599;</a><br>
+          <a href="../index.html" class="rsvp-footer-link">← Back to Urban Garden</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Particles
+    (function() {
+      const canvas = document.getElementById('vine-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H;
+      const particles = [];
+      const COUNT = window.innerWidth > 768 ? 25 : 12;
+
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() { this.reset(true); }
+        reset(initial = false) {
+          this.x = Math.random() * W;
+          this.y = initial ? Math.random() * H : H + Math.random() * 100 + 20;
+          this.size = Math.random() * 11 + 3;
+          this.speedX = (Math.random() - 0.5) * 0.4;
+          this.speedY = -Math.random() * 0.6 - 0.2;
+          this.opacity = Math.random() * 0.12 + 0.03;
+          this.isWhite = Math.random() > 0.75;
+          this.life = Math.random() * 800 + 400;
+          this.maxLife = this.life;
+        }
+        update() {
+          this.x += this.speedX; this.y += this.speedY; this.life--;
+          this.x += Math.sin(Date.now() * 0.001 + this.y * 0.01) * 0.25;
+          if (this.life <= 0 || this.y < -50 || this.x < -50 || this.x > W + 50) this.reset();
+        }
+        draw() {
+          const fadeRatio = this.life < 100 ? this.life / 100 : (this.life > this.maxLife - 100 ? (this.maxLife - this.life) / 100 : 1);
+          const a = this.opacity * fadeRatio;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.isWhite ? `rgba(255,255,255,${a})` : `rgba(180,110,220,${a})`;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < COUNT; i++) particles.push(new Particle());
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function loop() {
+        if (reduced) return;
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(loop);
+      }
+      if (!reduced) loop();
+    })();
+  </script>
+
+</body>
+</html>
