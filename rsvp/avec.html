@@ -528,7 +528,7 @@
       </div>
 
       <div class="rsvp-form-wrap">
-        <div id="capacity-counter" style="text-align: center; margin-bottom: 24px; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase;">
+        <div id="capacity-counter" style="display: none; text-align: center; margin-bottom: 24px; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase;">
           <span id="spots-left" style="color: var(--accent-green); font-weight: 500; font-size: 1.1rem;">--</span> / 100 Spots Remaining
         </div>
         <div id="rsvp-closed-msg" style="text-align: center; padding: 32px 24px; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(0,0,0,0.2); margin-bottom: 24px;">
@@ -649,6 +649,7 @@
       const form = document.getElementById('rsvp-form');
       const closedMsg = document.getElementById('rsvp-closed-msg');
       const countdownText = document.getElementById('rsvp-countdown-text');
+      const capacityCounter = document.getElementById('capacity-counter');
       if (!form || !closedMsg || !countdownText) return;
 
       const targetDate = new Date('2026-05-18T16:00:00+03:00').getTime();
@@ -660,6 +661,7 @@
         if (distance <= 0) {
           closedMsg.style.display = 'none';
           form.style.display = 'flex';
+          if (capacityCounter) capacityCounter.style.display = 'block';
           return;
         }
 
