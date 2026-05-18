@@ -6,6 +6,7 @@ export async function onRequestPost(context) {
     const name = formData.get('name')?.trim();
     const email = formData.get('email')?.trim();
     const marketingOptIn = formData.get('consent_marketing') === 'true';
+    const rsvpType = formData.get('rsvp_type') === 'priority' ? 'priority' : 'primary';
     const honey = formData.get('_honey');
 
     // Honeypot check
@@ -59,7 +60,8 @@ export async function onRequestPost(context) {
         name,
         email: safeEmail,
         timestamp: new Date().toISOString(),
-        marketingOptIn
+        marketingOptIn,
+        type: rsvpType
       };
 
       await env.RSVPS.put(rsvpKey, '1', { metadata });
@@ -119,9 +121,12 @@ export async function onRequestGet(context) {
   // CSV download
   if (format === 'csv') {
     const header = 'Name,Email,Guest Type,Timestamp,Marketing Opt-In';
-    const rows = rsvps.map(r =>
-      `"${r.name.replace(/"/g, '""')}","${r.email}","${r.type === 'avec' ? '+1 for ' + r.invitee : 'Primary'}","${r.timestamp}","${r.marketingOptIn ? 'Yes' : 'No'}"`
-    );
+    const rows = rsvps.map(r => {
+      let typeLabel = 'Primary';
+      if (r.type === 'avec') typeLabel = '+1 for ' + r.invitee;
+      else if (r.type === 'priority') typeLabel = 'Priority';
+      return `"${r.name.replace(/"/g, '""')}","${r.email}","${typeLabel}","${r.timestamp}","${r.marketingOptIn ? 'Yes' : 'No'}"`;
+    });
     const csv = [header, ...rows].join('\n');
 
     return new Response(csv, {
@@ -151,12 +156,20 @@ export async function onRequestGet(context) {
       day: '2-digit', month: '2-digit', year: 'numeric',
       hour: '2-digit', minute: '2-digit'
     });
+    
+    let typeHtml = 'Primary';
+    if (r.type === 'avec') {
+      typeHtml = `<span style="color:var(--text-sec);">+1</span> (${escapeHtml(r.invitee)})`;
+    } else if (r.type === 'priority') {
+      typeHtml = `<span style="color:var(--green); font-weight: 500;">Priority</span>`;
+    }
+
     return `
       <tr>
         <td class="num">${i + 1}</td>
         <td>${escapeHtml(r.name)}</td>
         <td><a href="mailto:${escapeHtml(r.email)}">${escapeHtml(r.email)}</a></td>
-        <td class="dim">${r.type === 'avec' ? '<span style="color:var(--text-sec);">+1</span> (' + escapeHtml(r.invitee) + ')' : 'Primary'}</td>
+        <td class="dim">${typeHtml}</td>
         <td class="dim">${formatted}</td>
         <td class="dim" style="color: ${r.marketingOptIn ? 'var(--green)' : 'inherit'};">${r.marketingOptIn ? 'Opted In' : '—'}</td>
       </tr>`;

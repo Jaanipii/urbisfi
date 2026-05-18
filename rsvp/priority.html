@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RSVP — Urban Garden Soft Launch</title>
+  <title>Priority RSVP — Urban Garden</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -507,7 +507,7 @@
 
         <!-- Intro -->
         <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin-bottom: 36px; text-align: center;">
-          Register as a +1 for the Urban Garden soft launch.
+          An exclusive invitation to the Urban Garden soft launch.
         </p>
 
         <!-- Perks Grid -->
@@ -528,25 +528,17 @@
       </div>
 
       <div class="rsvp-form-wrap">
-        <div id="rsvp-closed-msg" style="text-align: center; padding: 32px 24px; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(0,0,0,0.2); margin-bottom: 24px;">
-          <h2 style="font-size: 1.1rem; font-weight: 300; letter-spacing: 0.1em; color: var(--text-primary); margin-bottom: 12px; text-transform: uppercase;">Opening Soon</h2>
-          <p id="rsvp-countdown-text" style="font-size: 0.85rem; color: var(--accent-green); line-height: 1.6; font-family: monospace; font-size: 1.1rem;">Calculating...</p>
-        </div>
-        <form class="rsvp-form" id="rsvp-form" action="/api/avec" method="POST" style="display: none;">
+        <form class="rsvp-form" id="rsvp-form" action="/api/rsvp" method="POST" style="display: flex;">
           <input type="text" name="_honey" style="display:none">
+          <input type="hidden" name="rsvp_type" value="priority">
 
           <div class="form-group">
-            <label for="invitee-email" class="form-label">Invitee's Email (The person who invited you)</label>
-            <input type="email" id="invitee-email" name="invitee_email" class="form-input" placeholder="invitee@email.com" required autocomplete="email">
-          </div>
-
-          <div class="form-group">
-            <label for="rsvp-name" class="form-label">Your Name</label>
+            <label for="rsvp-name" class="form-label">Name</label>
             <input type="text" id="rsvp-name" name="name" class="form-input" placeholder="Your full name" required autocomplete="name">
           </div>
 
           <div class="form-group">
-            <label for="rsvp-email" class="form-label">Your Email</label>
+            <label for="rsvp-email" class="form-label">Email</label>
             <input type="email" id="rsvp-email" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
           </div>
 
@@ -641,38 +633,6 @@
       if (!reduced) loop();
     })();
 
-    // Countdown Timer
-    (function() {
-      const form = document.getElementById('rsvp-form');
-      const closedMsg = document.getElementById('rsvp-closed-msg');
-      const countdownText = document.getElementById('rsvp-countdown-text');
-      if (!form || !closedMsg || !countdownText) return;
-
-      const targetDate = new Date('2026-05-18T16:00:00+03:00').getTime();
-
-      function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-
-        if (distance <= 0) {
-          closedMsg.style.display = 'none';
-          form.style.display = 'flex';
-          return;
-        }
-
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        countdownText.innerHTML = 
-          (hours > 0 ? hours + "h " : "") + 
-          minutes + "m " + 
-          seconds + "s";
-      }
-
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    })();
   </script>
 
 </body>
