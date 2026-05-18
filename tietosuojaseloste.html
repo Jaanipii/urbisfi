@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tietosuojaseloste — Urban Garden</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-dark: #0e0e0e;
+      --text-primary: #f0ece4;
+      --text-secondary: #9a958c;
+      --text-dim: #5a564f;
+      --accent-green: #5cb832;
+      --border-subtle: rgba(255,255,255,0.06);
+      --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg-dark);
+      background-image: url('assets/concrete-bg.png');
+      background-repeat: repeat;
+      background-size: 512px 512px;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      position: relative;
+    }
+    .darkness-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); pointer-events: none; z-index: 0; }
+    .vignette { position: fixed; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.21) 60%, rgba(0,0,0,0.49) 100%); pointer-events: none; z-index: 0; }
+    
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100vh; display: flex; flex-direction: column;
+      padding: 80px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.5rem; font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-primary); margin-bottom: 32px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--text-primary); margin-top: 32px; margin-bottom: 12px;
+    }
+
+    p, ul {
+      color: var(--text-secondary); font-size: 15px; line-height: 1.7; margin-bottom: 16px;
+    }
+    
+    ul { padding-left: 20px; }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin: 40px auto 40px auto; padding: 12px 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: transparent; color: var(--text-dim);
+      text-decoration: none; border-radius: 40px;
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+    .back-btn:hover { border-color: rgba(92,184,50,0.3); color: var(--text-secondary); }
+
+  </style>
+</head>
+<body>
+  <div class="darkness-overlay"></div>
+  <div class="vignette"></div>
+
+  <div class="page">
+    <h1>Tietosuojaseloste</h1>
+    
+    <p>EU:n yleisen tietosuoja-asetuksen (GDPR) mukainen tietosuojaseloste.</p>
+
+    <h2>1. Rekisterinpitäjä</h2>
+    <p>Urban Garden Helsinki<br>Kansakoulukatu 3, Helsinki<br>Sähköposti: rsvp@urbangardenhelsinki.fi</p>
+
+    <h2>2. Rekisterin nimi</h2>
+    <p>Urban Garden -tapahtuman kutsuvierasrekisteri.</p>
+
+    <h2>3. Henkilötietojen käsittelyn tarkoitus ja oikeusperuste</h2>
+    <p>Henkilötietoja (nimi ja sähköpostiosoite) käsitellään tapahtuman järjestämistä, osallistujamäärän hallintaa ja tapahtumaan liittyvää viestintää varten. Käsittelyn oikeusperusteena on rekisteröidyn suostumus, jonka hän antaa ilmoittautumalla tapahtumaan.</p>
+
+    <h2>4. Käsiteltävät henkilötiedot</h2>
+    <p>Keräämme ainoastaan seuraavat tiedot:<br>
+    - Nimi<br>
+    - Sähköpostiosoite</p>
+
+    <h2>5. Säännönmukaiset tietojen luovutukset</h2>
+    <p>Tietoja ei luovuteta säännönmukaisesti kolmansille osapuolille, paitsi tapahtuman järjestämiseen välittömästi osallistuville kumppaneille (kuten turvallisuushenkilöstölle ovella) siltä osin kuin se on välttämätöntä.</p>
+
+    <h2>6. Tietojen siirto EU:n tai ETA:n ulkopuolelle</h2>
+    <p>Sivuston tietojenkäsittelyssä käytetään Cloudflare- ja Resend-palveluita, joiden palvelimet voivat sijaita EU/ETA-alueen ulkopuolella. Nämä palveluntarjoajat noudattavat GDPR:n mukaisia tietosuojakäytäntöjä ja käyttävät asianmukaisia suojamekanismeja, kuten EU:n mallilausekkeita (Standard Contractual Clauses).</p>
+
+    <h2>7. Tietojen säilytysaika</h2>
+    <p>Henkilötiedot poistetaan automaattisesti tai manuaalisesti kohtuullisen ajan kuluessa tapahtuman päättymisestä, kun niitä ei enää tarvita jälkiviestintään.</p>
+
+    <h2>8. Rekisteröidyn oikeudet</h2>
+    <p>Rekisteröidyllä on oikeus:<br>
+    - Tarkastaa itseään koskevat tiedot<br>
+    - Vaatia virheellisen tiedon oikaisua tai tietojen poistamista ("oikeus tulla unohdetuksi")<br>
+    - Peruuttaa suostumuksensa milloin tahansa<br>
+    <br>Pyyntöjen osalta pyydämme ottamaan yhteyttä yllä mainittuun sähköpostiosoitteeseen.</p>
+
+    <a href="index.html" class="back-btn">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Palaa etusivulle
+    </a>
+  </div>
+</body>
+</html>
