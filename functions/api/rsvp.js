@@ -407,7 +407,7 @@ Bar open until 19:30.
 <td style="padding:24px;">
 
 <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#5cb832;font-weight:600;">Date</div>
-<div style="font-size:15px;color:#222;margin-top:4px;margin-bottom:18px;">Wednesday, 21 May 2026</div>
+<div style="font-size:15px;color:#222;margin-top:4px;margin-bottom:18px;">Thursday, 21 May 2026</div>
 
 <div style="height:1px;background-color:#ddd;margin-bottom:18px;"></div>
 
