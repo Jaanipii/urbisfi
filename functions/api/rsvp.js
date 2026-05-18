@@ -118,6 +118,18 @@ export async function onRequestGet(context) {
     .filter(r => r.email) // ensure valid metadata
     .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
+  const formatTimestamp = (isoString) => {
+    try {
+      return new Date(isoString).toLocaleString('fi-FI', {
+        timeZone: 'Europe/Helsinki',
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    } catch (e) {
+      return isoString; // fallback to raw string if invalid
+    }
+  };
+
   // CSV download
   if (format === 'csv') {
     const header = 'Name,Email,Guest Type,Timestamp,Marketing Opt-In';
@@ -125,7 +137,7 @@ export async function onRequestGet(context) {
       let typeLabel = 'Primary';
       if (r.type === 'avec') typeLabel = '+1 for ' + r.invitee;
       else if (r.type === 'priority') typeLabel = 'Priority';
-      return `"${r.name.replace(/"/g, '""')}","${r.email}","${typeLabel}","${r.timestamp}","${r.marketingOptIn ? 'Yes' : 'No'}"`;
+      return `"${r.name.replace(/"/g, '""')}","${r.email}","${typeLabel}","${formatTimestamp(r.timestamp)}","${r.marketingOptIn ? 'Yes' : 'No'}"`;
     });
     const csv = [header, ...rows].join('\n');
 
@@ -151,11 +163,7 @@ export async function onRequestGet(context) {
 
   // HTML dashboard
   const tableRows = rsvps.map((r, i) => {
-    const date = new Date(r.timestamp);
-    const formatted = date.toLocaleDateString('fi-FI', {
-      day: '2-digit', month: '2-digit', year: 'numeric',
-      hour: '2-digit', minute: '2-digit'
-    });
+    const formatted = formatTimestamp(r.timestamp);
     
     let typeHtml = 'Primary';
     if (r.type === 'avec') {
