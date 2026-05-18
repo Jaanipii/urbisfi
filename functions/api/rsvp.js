@@ -6,6 +6,7 @@ export async function onRequestPost(context) {
     const name = formData.get('name')?.trim();
     const email = formData.get('email')?.trim();
     const marketingOptIn = formData.get('consent_marketing') === 'true';
+    const hasPlusOne = formData.get('has_plus_one') === 'true';
     const rsvpType = formData.get('rsvp_type') === 'priority' ? 'priority' : 'primary';
     const honey = formData.get('_honey');
 
@@ -47,7 +48,7 @@ export async function onRequestPost(context) {
     const avecList = await env.RSVPS.list({ prefix: 'avec:' });
     const totalGuests = rsvpList.keys.length + avecList.keys.length;
 
-    if (totalGuests >= 100) {
+    if (totalGuests >= 100 || (totalGuests === 99 && hasPlusOne)) {
       const origin = new URL(request.url).origin;
       return Response.redirect(`${origin}/rsvp/full.html`, 302);
     }
@@ -66,6 +67,19 @@ export async function onRequestPost(context) {
 
       await env.RSVPS.put(rsvpKey, '1', { metadata });
 
+      if (hasPlusOne) {
+        await env.RSVPS.put(`avec:${safeEmail}`, '1', {
+          metadata: {
+            name: `+1 Guest`,
+            email: `guest@${safeEmail}`,
+            timestamp: new Date().toISOString(),
+            marketingOptIn: false,
+            type: 'avec',
+            invitee: safeEmail
+          }
+        });
+      }
+
       // Send confirmation email (fire-and-forget)
       if (env.RESEND_API_KEY) {
         try {
@@ -80,7 +94,7 @@ export async function onRequestPost(context) {
               from: 'Urban Garden <rsvp@urbangardenhelsinki.fi>',
               to: email,
               subject: "You're in — Urban Garden Soft Launch",
-              html: buildConfirmationEmail(firstName)
+              html: buildConfirmationEmail(firstName, hasPlusOne)
             })
           });
         } catch (_) {
@@ -380,8 +394,9 @@ function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function buildConfirmationEmail(firstName) {
-  const bannerUrl = 'https://urbangardenhelsinki.fi/rsvpbanner.png';
+// Confirmation Email Template
+function buildConfirmationEmail(firstName, hasPlusOne) {
+  const bannerUrl = 'https://urbangardenhelsinki.fi/logos/ug_banner.png';
   const mapsUrl = 'https://maps.google.com/?q=Kansakoulukatu+3,+Helsinki';
 
   return `<!DOCTYPE html>
@@ -427,7 +442,7 @@ Hey ${firstName},
 </div>
 
 <div style="font-size:15px;color:#555;line-height:1.7;margin-bottom:28px;">
-Your RSVP for the <strong style="color:#222;">Urban Garden Soft Launch</strong> is confirmed. You're on the guest list.<br><br>
+Your RSVP for the <strong style="color:#222;">Urban Garden Soft Launch</strong> is confirmed. ${hasPlusOne ? "You and your +1 are on the guest list." : "You're on the guest list."}<br><br>
 16:00 &ndash; 20:00<br><br>
 DJ by Luxonia playing house music.<br>
 The on-site jacuzzi and sauna will be available. Kindly bring your own swimwear and towel.<br>
@@ -460,11 +475,13 @@ Bar open until 19:30.
 We'll send more details closer to the event. Keep this email as your confirmation.
 </div>
 
+<!-- Old +1 Email Block (Hidden) 
 <div style="margin-top:24px;font-size:13px;color:#222;line-height:1.7;padding:16px;background-color:#f9f9f9;border-radius:8px;border:1px solid #ddd;">
 <strong>Want to bring a +1?</strong><br>
 Send this link to your +1 so they can register for the guest list:<br>
 <a href="https://urbangardenhelsinki.fi/rsvp/avec.html" style="color:#5cb832;text-decoration:none;">https://urbangardenhelsinki.fi/rsvp/avec.html</a>
-</div>
+</div> 
+-->
 
 <!-- CTAs -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:28px;">
