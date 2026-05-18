@@ -42,8 +42,11 @@ export async function onRequestPost(context) {
     const rsvpKey = `rsvp:${safeEmail}`;
 
     // Check capacity
-    const list = await env.RSVPS.list({ prefix: 'rsvp:' });
-    if (list.keys.length >= 100) {
+    const rsvpList = await env.RSVPS.list({ prefix: 'rsvp:' });
+    const avecList = await env.RSVPS.list({ prefix: 'avec:' });
+    const totalGuests = rsvpList.keys.length + avecList.keys.length;
+
+    if (totalGuests >= 100) {
       const origin = new URL(request.url).origin;
       return Response.redirect(`${origin}/rsvp/full.html`, 302);
     }
@@ -104,17 +107,20 @@ export async function onRequestGet(context) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  const list = await env.RSVPS.list({ prefix: 'rsvp:' });
-  const rsvps = list.keys
+  const rsvpList = await env.RSVPS.list({ prefix: 'rsvp:' });
+  const avecList = await env.RSVPS.list({ prefix: 'avec:' });
+  
+  const allKeys = [...rsvpList.keys, ...avecList.keys];
+  const rsvps = allKeys
     .map(k => k.metadata || {})
     .filter(r => r.email) // ensure valid metadata
     .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   // CSV download
   if (format === 'csv') {
-    const header = 'Name,Email,Timestamp,Marketing Opt-In';
+    const header = 'Name,Email,Guest Type,Timestamp,Marketing Opt-In';
     const rows = rsvps.map(r =>
-      `"${r.name.replace(/"/g, '""')}","${r.email}","${r.timestamp}","${r.marketingOptIn ? 'Yes' : 'No'}"`
+      `"${r.name.replace(/"/g, '""')}","${r.email}","${r.type === 'avec' ? '+1 for ' + r.invitee : 'Primary'}","${r.timestamp}","${r.marketingOptIn ? 'Yes' : 'No'}"`
     );
     const csv = [header, ...rows].join('\n');
 
@@ -150,6 +156,7 @@ export async function onRequestGet(context) {
         <td class="num">${i + 1}</td>
         <td>${escapeHtml(r.name)}</td>
         <td><a href="mailto:${escapeHtml(r.email)}">${escapeHtml(r.email)}</a></td>
+        <td class="dim">${r.type === 'avec' ? '<span style="color:var(--text-sec);">+1</span> (' + escapeHtml(r.invitee) + ')' : 'Primary'}</td>
         <td class="dim">${formatted}</td>
         <td class="dim" style="color: ${r.marketingOptIn ? 'var(--green)' : 'inherit'};">${r.marketingOptIn ? 'Opted In' : '—'}</td>
       </tr>`;
@@ -323,6 +330,7 @@ export async function onRequestGet(context) {
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Guest Type</th>
             <th>Date</th>
             <th>Marketing</th>
           </tr>
@@ -436,6 +444,11 @@ We'll send more details closer to the event. Keep this email as your confirmatio
 <tr>
 <td align="center" style="padding-bottom:12px;">
 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Urban+Garden+Soft+Launch&dates=20260521T130000Z/20260521T170000Z&details=DJ+by+Luxonia+playing+house+music.%0AThe+on-site+jacuzzi+and+sauna+will+be+available.+Kindly+bring+your+own+swimwear+and+towel.%0ABar+open+until+19%3A30.&location=Kansakoulukatu+3,+Helsinki" target="_blank" style="display:inline-block;padding:14px 36px;background-color:#5cb832;border-radius:40px;color:#ffffff;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;">Add to Calendar</a>
+</td>
+</tr>
+<tr>
+<td align="center" style="padding-bottom:12px;">
+<a href="https://urbangardenhelsinki.fi/rsvp/avec.html" target="_blank" style="display:inline-block;padding:14px 36px;background-color:transparent;border:1px solid #5cb832;border-radius:40px;color:#5cb832;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;">Register your +1</a>
 </td>
 </tr>
 <tr>

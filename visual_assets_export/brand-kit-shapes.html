@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Urban Garden Brand Kit & Shapes</title>
+  <style>
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0e0e0e;
+      color: #f0ece4;
+      padding: 40px;
+    }
+    .section {
+      margin-bottom: 60px;
+    }
+    h2 {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    /* COLORS */
+    .color-swatch {
+      width: 150px;
+      height: 100px;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    .c-bg-dark { background: #0e0e0e; border: 1px solid #333; }
+    .c-bg-section { background: #131313; border: 1px solid #333; }
+    .c-bg-card { background: #1a1a1a; border: 1px solid #333; }
+    .c-accent-green { background: #5cb832; color: #000; text-shadow: none; }
+    .c-accent-green-light { background: #7ed957; color: #000; text-shadow: none; }
+    .c-accent-green-dark { background: #3a7a1e; }
+    .c-accent-purple { background: #9b59b6; }
+    .c-accent-purple-deep { background: #6a1b8a; }
+    .c-flash-red { background: #ff3b30; }
+    .c-flash-orange { background: #ff9500; }
+    
+    /* GRADIENTS */
+    .gradient-swatch {
+      width: 300px;
+      height: 100px;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    .g-flash { background: linear-gradient(90deg, #ff3b30, #ff9500); }
+    .g-ribbon { background: linear-gradient(135deg, #5cb832, #3a7a1e); }
+    
+    /* SHAPES */
+    .shape-container {
+      background: #131313;
+      padding: 40px;
+      border-radius: 12px;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .ribbon {
+      background: linear-gradient(135deg, #5cb832, #3a7a1e);
+      color: #000;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(92, 184, 50, 0.3);
+      display: inline-block;
+    }
+    
+    .flash-ribbon {
+      background: #ff3b30;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #5cb832;
+      color: #000;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .genre-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #5cb832;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>Urban Garden — Visual Assets Guide</h1>
+  <p>Use this file to reference exact hex codes, export shapes via screenshots, or copy CSS styles for other marketing materials.</p>
+  
+  <div class="section">
+    <h2>Brand Colors</h2>
+    <div class="grid">
+      <div class="color-swatch c-bg-dark">#0E0E0E</div>
+      <div class="color-swatch c-bg-section">#131313</div>
+      <div class="color-swatch c-bg-card">#1A1A1A</div>
+      <div class="color-swatch c-accent-green">#5CB832</div>
+      <div class="color-swatch c-accent-green-light">#7ED957</div>
+      <div class="color-swatch c-accent-green-dark">#3A7A1E</div>
+      <div class="color-swatch c-accent-purple">#9B59B6</div>
+      <div class="color-swatch c-accent-purple-deep">#6A1B8A</div>
+      <div class="color-swatch c-flash-red">#FF3B30</div>
+      <div class="color-swatch c-flash-orange">#FF9500</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Gradients</h2>
+    <div class="grid">
+      <div class="gradient-swatch g-ribbon">Most Popular Gradient</div>
+      <div class="gradient-swatch g-flash">Flash Sale Gradient</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Shapes & UI Elements</h2>
+    <div class="shape-container">
+      <div>
+        <p>Standard Button</p>
+        <div class="btn">Get Tickets</div>
+      </div>
+      <div>
+        <p>Ticket Ribbon (Green)</p>
+        <div class="ribbon">Most Popular</div>
+      </div>
+      <div>
+        <p>Ticket Ribbon (Red)</p>
+        <div class="flash-ribbon">Best Deal</div>
+      </div>
+      <div>
+        <p>Genre Tag</p>
+        <div class="genre-tag">House · 17:00 – 22:00</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
