@@ -506,9 +506,15 @@
         </div>
 
         <!-- Intro -->
-        <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin-bottom: 36px; text-align: center;">
+        <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin-bottom: 8px; text-align: center;">
           Register as a +1 for the Urban Garden <span style="white-space: nowrap;">soft launch.</span>
         </p>
+        
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 16px 0; margin-bottom: 32px;">
+          <p style="color: var(--text-dim); font-size: 11.5px; letter-spacing: 0.05em; line-height: 1.6; text-align: center; text-transform: uppercase;">
+            Guest list strictly closes at <strong style="color: var(--text-secondary);">20:00 tonight</strong>, or when capacity is reached—whichever comes first.
+          </p>
+        </div>
 
         <!-- Perks Grid -->
         <div class="rsvp-perks">
@@ -530,6 +536,12 @@
       <div class="rsvp-form-wrap">
         <div id="capacity-counter" style="display: none; text-align: center; margin-bottom: 24px; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase;">
           <span id="spots-left" style="color: var(--accent-green); font-weight: 500; font-size: 1.1rem;">--</span> / 100 Spots Remaining
+          <div id="capacity-progress-container" style="width: 100%; height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-top: 12px; overflow: hidden; display: none;">
+            <div id="capacity-progress-bar" style="width: 0%; height: 100%; background: var(--accent-green); transition: width 1s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.3s ease;"></div>
+          </div>
+          <div id="waitlist-warning" style="font-size: 10px; color: var(--text-dim); margin-top: 12px; font-style: italic; letter-spacing: 0; text-transform: none; display: none;">
+            Once capacity is reached, all new sign-ups will be placed on a standby waitlist.
+          </div>
         </div>
         <div id="rsvp-closed-msg" style="text-align: center; padding: 32px 24px; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(0,0,0,0.2); margin-bottom: 24px;">
           <h2 style="font-size: 1.1rem; font-weight: 300; letter-spacing: 0.1em; color: var(--text-primary); margin-bottom: 12px; text-transform: uppercase;">Opening Soon</h2>
@@ -537,6 +549,10 @@
         </div>
         <form class="rsvp-form" id="rsvp-form" action="/api/avec" method="POST" style="display: none;">
           <input type="text" name="_honey" style="display:none">
+          
+          <div id="hold-timer-wrap" style="display: none; padding: 12px; background: rgba(92, 184, 50, 0.05); border: 1px solid rgba(92, 184, 50, 0.2); border-radius: 8px; margin-bottom: 8px; text-align: center;">
+            <span style="font-size: 12px; color: var(--accent-green); letter-spacing: 0.05em;">Your spot is held for: <strong id="hold-timer" style="font-family: monospace; font-size: 14px; margin-left: 4px;">05:00</strong></span>
+          </div>
 
           <div class="form-group">
             <label for="invitee-email" class="form-label">Invitee's Email (The person who invited you)</label>
@@ -662,6 +678,12 @@
           closedMsg.style.display = 'none';
           form.style.display = 'flex';
           if (capacityCounter) capacityCounter.style.display = 'block';
+          
+          const progressContainer = document.getElementById('capacity-progress-container');
+          const waitlistWarning = document.getElementById('waitlist-warning');
+          if (progressContainer) progressContainer.style.display = 'block';
+          if (waitlistWarning) waitlistWarning.style.display = 'block';
+          
           return;
         }
 
@@ -687,6 +709,17 @@
           const spotsLeftEl = document.getElementById('spots-left');
           if (spotsLeftEl && data.spotsLeft !== undefined) {
             spotsLeftEl.textContent = data.spotsLeft;
+            
+            const progressBar = document.getElementById('capacity-progress-bar');
+            if (progressBar) {
+              const percentFilled = ((100 - data.spotsLeft) / 100) * 100;
+              progressBar.style.width = `${percentFilled}%`;
+              if (percentFilled >= 80) {
+                progressBar.style.backgroundColor = '#e74c3c';
+                spotsLeftEl.style.color = '#e74c3c';
+              }
+            }
+
             if (data.spotsLeft === 0) {
               spotsLeftEl.style.color = '#e74c3c';
               const btn = document.getElementById('rsvp-submit');
@@ -698,6 +731,43 @@
           }
         })
         .catch(() => {});
+    })();
+
+    // Hold Timer
+    (function() {
+      const rsvpForm = document.getElementById('rsvp-form');
+      const holdTimerWrap = document.getElementById('hold-timer-wrap');
+      const holdTimerEl = document.getElementById('hold-timer');
+      let holdTimerStarted = false;
+      let holdTime = 300; // 5 minutes
+      
+      if (rsvpForm && holdTimerWrap && holdTimerEl) {
+        rsvpForm.addEventListener('input', () => {
+          if (holdTimerStarted) return;
+          holdTimerStarted = true;
+          holdTimerWrap.style.display = 'block';
+          
+          const interval = setInterval(() => {
+            holdTime--;
+            if (holdTime <= 0) {
+              clearInterval(interval);
+              holdTimerEl.textContent = "00:00";
+              holdTimerEl.style.color = "#e74c3c";
+              holdTimerWrap.style.borderColor = "rgba(231, 76, 60, 0.3)";
+              holdTimerWrap.style.background = "rgba(231, 76, 60, 0.05)";
+              const btn = document.getElementById('rsvp-submit');
+              if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="btn-text">Time Expired</span>';
+              }
+            } else {
+              const m = Math.floor(holdTime / 60).toString().padStart(2, '0');
+              const s = (holdTime % 60).toString().padStart(2, '0');
+              holdTimerEl.textContent = `${m}:${s}`;
+            }
+          }, 1000);
+        });
+      }
     })();
   </script>
 
