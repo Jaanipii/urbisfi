@@ -397,7 +397,7 @@ Hey ${firstName},
 Your RSVP for the <strong style="color:#222;">Urban Garden Soft Launch</strong> is confirmed. You're on the guest list.<br><br>
 16:00 &ndash; 20:00<br><br>
 DJ by Luxonia playing house music.<br>
-The onsite jacuzzi and sauna will be available. Kindly bring your own swimwear and towel.<br>
+The on-site jacuzzi and sauna will be available. Kindly bring your own swimwear and towel.<br>
 Bar open until 19:30.
 </div>
 
@@ -431,7 +431,7 @@ We'll send more details closer to the event. Keep this email as your confirmatio
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:28px;">
 <tr>
 <td align="center" style="padding-bottom:12px;">
-<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Urban+Garden+Soft+Launch&dates=20260521T130000Z/20260521T170000Z&details=DJ+by+Luxonia+playing+house+music.%0AThe+onsite+jacuzzi+and+sauna+will+be+available.+Kindly+bring+your+own+swimwear+and+towel.%0ABar+open+until+19%3A30.&location=Kansakoulukatu+3,+Helsinki" target="_blank" style="display:inline-block;padding:14px 36px;background-color:#5cb832;border-radius:40px;color:#ffffff;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;">Add to Calendar</a>
+<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Urban+Garden+Soft+Launch&dates=20260521T130000Z/20260521T170000Z&details=DJ+by+Luxonia+playing+house+music.%0AThe+on-site+jacuzzi+and+sauna+will+be+available.+Kindly+bring+your+own+swimwear+and+towel.%0ABar+open+until+19%3A30.&location=Kansakoulukatu+3,+Helsinki" target="_blank" style="display:inline-block;padding:14px 36px;background-color:#5cb832;border-radius:40px;color:#ffffff;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;">Add to Calendar</a>
 </td>
 </tr>
 <tr>
