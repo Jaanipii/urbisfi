@@ -5,6 +5,7 @@ export async function onRequestPost(context) {
     const formData = await request.formData();
     const name = formData.get('name')?.trim();
     const email = formData.get('email')?.trim();
+    const marketingOptIn = formData.get('consent_marketing') === 'true';
     const honey = formData.get('_honey');
 
     // Honeypot check
@@ -54,7 +55,8 @@ export async function onRequestPost(context) {
       const metadata = {
         name,
         email: safeEmail,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        marketingOptIn
       };
 
       await env.RSVPS.put(rsvpKey, '1', { metadata });
@@ -110,9 +112,9 @@ export async function onRequestGet(context) {
 
   // CSV download
   if (format === 'csv') {
-    const header = 'Name,Email,Timestamp';
+    const header = 'Name,Email,Timestamp,Marketing Opt-In';
     const rows = rsvps.map(r =>
-      `"${r.name.replace(/"/g, '""')}","${r.email}","${r.timestamp}"`
+      `"${r.name.replace(/"/g, '""')}","${r.email}","${r.timestamp}","${r.marketingOptIn ? 'Yes' : 'No'}"`
     );
     const csv = [header, ...rows].join('\n');
 

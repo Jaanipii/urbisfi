@@ -219,6 +219,55 @@
       border-bottom-color: rgba(255,255,255,0.15);
     }
 
+    /* Checkboxes */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .checkbox-group input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.2s ease;
+    }
+    .checkbox-group input[type="checkbox"]:checked {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+    }
+    .checkbox-group input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid #111;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .checkbox-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-weight: 300;
+      cursor: pointer;
+    }
+    .checkbox-label a {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
     /* Submit */
     .rsvp-submit {
       display: flex;
@@ -490,6 +539,20 @@
           <div class="form-group">
             <label for="rsvp-email" class="form-label">Email</label>
             <input type="email" id="rsvp-email" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
+          </div>
+
+          <div class="checkbox-group" style="margin-top: 12px;">
+            <input type="checkbox" id="rsvp-consent-info" name="consent_info" required>
+            <label for="rsvp-consent-info" class="checkbox-label">
+              I agree to the processing of my email for informational purposes regarding this event, in accordance with the <a href="../tietosuojaseloste.html" target="_blank">Privacy Policy</a>.
+            </label>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="rsvp-consent-marketing" name="consent_marketing" value="true">
+            <label for="rsvp-consent-marketing" class="checkbox-label">
+              I would like to receive information about future events and marketing from Urban Garden.
+            </label>
           </div>
 
           <button type="submit" class="rsvp-submit" id="rsvp-submit">
