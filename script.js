@@ -408,8 +408,8 @@ const DOM = {
 
 // ---- Flash Sale Timer ----
 (function initFlashSaleTimer() {
-  // Flash sale hidden completely
-  const targetDate = 0;
+  // Early bird price bump on May 27, 2026 at 00:00:00 (+03:00)
+  const targetDate = new Date('2026-05-27T00:00:00+03:00').getTime();
   const timerElement = document.getElementById('flash-countdown');
   const topBar = document.getElementById('top-announcement-bar');
   const flashWrapper = document.querySelector('.flash-sale-wrapper');
@@ -417,7 +417,8 @@ const DOM = {
   if (!timerElement || !topBar) return;
 
   function updateFlashTimer() {
-    const distance = -1; // Force hide
+    const now = new Date().getTime();
+    const distance = targetDate - now;
 
     if (distance <= 0) {
       // Flash sale over
