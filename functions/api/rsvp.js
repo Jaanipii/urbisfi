@@ -18,26 +18,46 @@ export async function onRequestPost(context) {
       return new Response('Name and email are required', { status: 400 });
     }
 
-    // Get existing RSVPs
-    const existing = await env.RSVPS.get('rsvp_list', 'json') || [];
+    // Rate Limiting
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (ip !== 'unknown') {
+      const rlKey = `rl:${ip}`;
+      const rlData = await env.RSVPS.get(rlKey, 'json') || { count: 0, time: Date.now() };
+      
+      if (Date.now() - rlData.time > 60000) {
+        rlData.count = 1;
+        rlData.time = Date.now();
+      } else {
+        rlData.count += 1;
+      }
+      
+      if (rlData.count > 4) {
+        return new Response('Too many requests, please try again later.', { status: 429 });
+      }
+      await env.RSVPS.put(rlKey, JSON.stringify(rlData), { expirationTtl: 60 });
+    }
+
+    const safeEmail = email.toLowerCase();
+    const rsvpKey = `rsvp:${safeEmail}`;
 
     // Check capacity
-    if (existing.length >= 100) {
+    const list = await env.RSVPS.list({ prefix: 'rsvp:' });
+    if (list.keys.length >= 100) {
       const origin = new URL(request.url).origin;
       return Response.redirect(`${origin}/rsvp/full.html`, 302);
     }
 
     // Check for duplicate email
-    const isDuplicate = existing.some(r => r.email.toLowerCase() === email.toLowerCase());
+    const isDuplicate = await env.RSVPS.get(rsvpKey);
 
     if (!isDuplicate) {
-      existing.push({
+      const metadata = {
         name,
-        email,
+        email: safeEmail,
         timestamp: new Date().toISOString()
-      });
+      };
 
-      await env.RSVPS.put('rsvp_list', JSON.stringify(existing));
+      await env.RSVPS.put(rsvpKey, '1', { metadata });
 
       // Send confirmation email (fire-and-forget)
       if (env.RESEND_API_KEY) {
@@ -82,7 +102,11 @@ export async function onRequestGet(context) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  const rsvps = await env.RSVPS.get('rsvp_list', 'json') || [];
+  const list = await env.RSVPS.list({ prefix: 'rsvp:' });
+  const rsvps = list.keys
+    .map(k => k.metadata || {})
+    .filter(r => r.email) // ensure valid metadata
+    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   // CSV download
   if (format === 'csv') {

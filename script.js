@@ -408,8 +408,8 @@ const DOM = {
 
 // ---- Flash Sale Timer ----
 (function initFlashSaleTimer() {
-  // Flash sale ends June 15, 2026 at 00:05:00 (+03:00)
-  const targetDate = new Date('2026-06-15T00:05:00+03:00').getTime();
+  // Flash sale hidden completely
+  const targetDate = 0;
   const timerElement = document.getElementById('flash-countdown');
   const topBar = document.getElementById('top-announcement-bar');
   const flashWrapper = document.querySelector('.flash-sale-wrapper');
@@ -417,8 +417,7 @@ const DOM = {
   if (!timerElement || !topBar) return;
 
   function updateFlashTimer() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+    const distance = -1; // Force hide
 
     if (distance <= 0) {
       // Flash sale over
